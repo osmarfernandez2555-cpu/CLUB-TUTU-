@@ -21,8 +21,9 @@
   --azul:#003685;          /* azul Tutu */
   --azul-noche:#001A45;
   --azul-tinta:#00112E;
-  --verde:#82B735;         /* verde Tutu */
-  --verde-vivo:#9BD14A;
+  --luz:#5B9DFF;           /* azul claro: acentos sobre fondo oscuro */
+  --rey:#1559D6;           /* azul fuerte: botones y tarjeta Express */
+  --rey-hover:#0F4AB8;
   --celeste:#3686F7;
   --hielo:#EAF1FB;
   --tinta:#0B1F3F;
@@ -40,8 +41,9 @@ body{margin:0;font-family:var(--texto);color:var(--tinta);background:var(--azul-
 img{display:block;max-width:100%}
 a{color:inherit}
 button,input{font:inherit;color:inherit}
-::selection{background:var(--verde);color:var(--azul-tinta)}
-:focus-visible{outline:3px solid var(--verde);outline-offset:3px;border-radius:6px}
+::selection{background:var(--luz);color:var(--azul-tinta)}
+:focus-visible{outline:3px solid var(--luz);outline-offset:3px;border-radius:6px}
+.p-ref :focus-visible,.express-info :focus-visible,dialog :focus-visible,.p-ref:focus-visible{outline-color:var(--rey)}
 html{scrollbar-color:var(--azul) var(--azul-tinta)}
 ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--azul-tinta)}::-webkit-scrollbar-thumb{background:var(--azul);border-radius:10px}
 .ico{width:1.25em;height:1.25em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -62,14 +64,14 @@ html{scrollbar-color:var(--azul) var(--azul-tinta)}
    linear-gradient(100deg,rgba(0,17,46,.96) 0%,rgba(0,26,69,.86) 42%,rgba(0,54,133,.42) 100%)}
 
 .barra{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(20px,4vw,56px)}
-.barra .logo{height:30px;width:auto;filter:brightness(0) invert(1)}
+.barra .logo{height:44px;width:auto}
 .barra .logo-txt{font:900 1.5rem/1 var(--display);letter-spacing:.01em;text-decoration:none}
 .chip-wa{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:40px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);text-decoration:none;font-weight:600;font-size:.94rem;transition:background .2s}
 .chip-wa:hover{background:rgba(255,255,255,.2)}
 
 .titular{padding:clamp(28px,7vh,90px) clamp(20px,4vw,56px) 0;max-width:1180px}
 .marca{margin:0;font:900 clamp(3.4rem,10.5vw,6rem)/.86 var(--display);text-transform:uppercase;letter-spacing:-.01em;display:flex;align-items:flex-start}
-.marca .mas{color:var(--verde);font-size:1.18em;line-height:.62;margin-left:.04em;display:inline-block;transform:translateY(-.02em)}
+.marca .mas{color:var(--luz);font-size:1.18em;line-height:.62;margin-left:.04em;display:inline-block;transform:translateY(-.02em)}
 .bajada{margin:18px 0 0;font-size:clamp(1.15rem,2.1vw,1.6rem);font-weight:500;max-width:30ch;text-wrap:balance;color:#DCE7F7}
 .bajada strong{color:var(--blanco);font-weight:700}
 
@@ -95,32 +97,32 @@ a.puerta:hover,button.puerta:hover{transform:translateY(-6px);box-shadow:0 28px 
 .p-ref .ir{color:var(--azul)}
 .p-ref small{color:var(--tinta-suave);font-size:.78rem}
 
-.p-exp{background:var(--verde);color:var(--azul-tinta);padding-top:clamp(26px,3vw,38px);padding-bottom:clamp(26px,3vw,38px)}
-.p-exp .icono{background:var(--azul-tinta);color:var(--verde)}
+.p-exp{background:var(--rey);color:var(--blanco);padding-top:clamp(26px,3vw,38px);padding-bottom:clamp(26px,3vw,38px)}
+.p-exp .icono{background:rgba(255,255,255,.16);color:var(--blanco)}
 .p-exp h2{font-size:clamp(2rem,3.4vw,2.9rem)}
 .p-exp p{font-size:1.06rem;font-weight:500}
-.p-exp .ir{align-self:flex-start;padding:14px 22px;border-radius:40px;background:var(--azul-tinta);color:var(--blanco);font-size:1.02rem}
-.p-exp .sello{position:absolute;top:18px;right:18px;font:800 .78rem/1 var(--display);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:8px;border:2px solid var(--azul-tinta)}
+.p-exp .ir{align-self:flex-start;padding:14px 22px;border-radius:40px;background:var(--blanco);color:var(--rey);font-size:1.02rem}
+.p-exp .sello{position:absolute;top:18px;right:18px;font:800 .78rem/1 var(--display);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:8px;border:2px solid rgba(255,255,255,.7)}
 
-.p-mb{background:var(--azul-tinta);color:var(--blanco);border:1.5px dashed rgba(130,183,53,.55);cursor:default;box-shadow:0 18px 40px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.04)}
-.p-mb .icono{background:rgba(130,183,53,.14);color:var(--verde);position:relative}
-.p-mb .candado{position:absolute;right:-6px;bottom:-6px;width:22px;height:22px;border-radius:50%;background:var(--verde);color:var(--azul-tinta);display:grid;place-items:center}
+.p-mb{background:var(--azul-tinta);color:var(--blanco);border:1.5px dashed rgba(91,157,255,.55);cursor:default;box-shadow:0 18px 40px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.04)}
+.p-mb .icono{background:rgba(91,157,255,.14);color:var(--luz);position:relative}
+.p-mb .candado{position:absolute;right:-6px;bottom:-6px;width:22px;height:22px;border-radius:50%;background:var(--luz);color:var(--azul-tinta);display:grid;place-items:center}
 .p-mb .candado .ico{width:13px;height:13px;stroke-width:2.6}
 .p-mb p{color:#C9D6EA}
 .reloj{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 2px}
 .reloj div{background:rgba(255,255,255,.06);border-radius:10px;padding:8px 4px 7px;text-align:center}
-.reloj b{display:block;font:800 clamp(1.4rem,2.2vw,1.9rem)/1 var(--display);font-variant-numeric:tabular-nums;color:var(--verde)}
+.reloj b{display:block;font:800 clamp(1.4rem,2.2vw,1.9rem)/1 var(--display);font-variant-numeric:tabular-nums;color:var(--luz)}
 .reloj span{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#9FB3D1}
-.btn-interes{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:40px;background:transparent;color:var(--blanco);border:2px solid var(--verde);font-weight:700;cursor:pointer;transition:background .2s,color .2s}
-.btn-interes:hover{background:var(--verde);color:var(--azul-tinta)}
-.btn-interes[aria-pressed="true"]{background:var(--verde);color:var(--azul-tinta);cursor:default}
+.btn-interes{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:40px;background:transparent;color:var(--blanco);border:2px solid var(--luz);font-weight:700;cursor:pointer;transition:background .2s,color .2s}
+.btn-interes:hover{background:var(--luz);color:var(--azul-tinta)}
+.btn-interes[aria-pressed="true"]{background:var(--luz);color:var(--azul-tinta);cursor:default}
 .mb-ok{display:none;flex-direction:column;gap:8px}
 .mb-ok.ver{display:flex}
 .mb-ok p{font-size:.95rem;color:var(--blanco)}
 .mb-aviso{display:flex;gap:6px}
 .mb-aviso input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:var(--blanco)}
 .mb-aviso input::placeholder{color:#9FB3D1}
-.mb-aviso button{padding:10px 14px;border-radius:10px;border:0;background:var(--verde);color:var(--azul-tinta);font-weight:700;cursor:pointer}
+.mb-aviso button{padding:10px 14px;border-radius:10px;border:0;background:var(--luz);color:var(--azul-tinta);font-weight:700;cursor:pointer}
 .mb-contador{font-size:.88rem;color:#9FB3D1}
 .p-mb.abierta{border-style:solid;cursor:pointer}
 
@@ -128,20 +130,20 @@ a.puerta:hover,button.puerta:hover{transform:translateY(-6px);box-shadow:0 28px 
 .seccion{padding:clamp(64px,10vw,120px) clamp(20px,4vw,56px)}
 .express-info{background:var(--blanco);display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,96px);align-items:center}
 .express-info h2{margin:0;font:900 clamp(2.3rem,5vw,4rem)/.95 var(--display);text-transform:uppercase;color:var(--azul);text-wrap:balance}
-.express-info h2 em{font-style:normal;color:var(--verde);-webkit-text-stroke:0}
+.express-info h2 em{font-style:normal;color:var(--rey)}
 .express-info .lead{margin:20px 0 28px;font-size:1.15rem;color:var(--tinta-suave);max-width:46ch}
 .boton{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:40px;border:0;background:var(--azul);color:var(--blanco);font-weight:700;font-size:1.05rem;cursor:pointer;text-decoration:none;transition:background .2s,transform .3s var(--sale)}
 .boton:hover{background:#00296A;transform:translateY(-2px)}
 .pasos{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:p}
 .pasos li{counter-increment:p;display:grid;grid-template-columns:64px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--linea)}
 .pasos li:last-child{border-bottom:1px solid var(--linea)}
-.pasos li::before{content:counter(p);font:900 3rem/.9 var(--display);color:var(--verde)}
+.pasos li::before{content:counter(p);font:900 3rem/.9 var(--display);color:var(--rey)}
 .pasos b{display:block;font-size:1.2rem;color:var(--tinta);margin-bottom:4px}
 .pasos span{color:var(--tinta-suave)}
 
 .comunidad{background:var(--azul);color:var(--blanco);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px}
 .comunidad h2{margin:0;font:900 clamp(2.2rem,5.5vw,4.4rem)/.92 var(--display);text-transform:uppercase;max-width:14ch}
-.comunidad h2 span{color:var(--verde)}
+.comunidad h2 span{color:var(--luz)}
 .redes{display:flex;flex-wrap:wrap;gap:12px}
 .redes a{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:40px;border:1.5px solid rgba(255,255,255,.35);text-decoration:none;font-weight:600;transition:background .2s,border-color .2s}
 .redes a:hover{background:rgba(255,255,255,.1);border-color:var(--blanco)}
@@ -149,7 +151,7 @@ a.puerta:hover,button.puerta:hover{transform:translateY(-6px);box-shadow:0 28px 
 .pie{background:var(--azul-tinta);color:#B4C3DB;padding:44px clamp(20px,4vw,56px) calc(44px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;gap:28px 56px;font-size:.95rem}
 .pie strong{display:block;color:var(--blanco);margin-bottom:2px}
 .pie .suc{display:flex;gap:10px}
-.pie .suc .ico{color:var(--verde);margin-top:3px}
+.pie .suc .ico{color:var(--luz);margin-top:3px}
 .pie .legal{flex-basis:100%;font-size:.8rem;color:#7E92B3;border-top:1px solid rgba(255,255,255,.08);padding-top:20px}
 
 /* ============ TUTU EXPRESS (panel) ============ */
@@ -159,7 +161,7 @@ dialog.panel[open]{animation:entra .5s var(--sale)}
 dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 .panel-cab{position:sticky;top:0;z-index:2;background:var(--azul);color:var(--blanco);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .panel-cab h2{margin:0;font:900 1.7rem/1 var(--display);text-transform:uppercase}
-.panel-cab h2 span{color:var(--verde)}
+.panel-cab h2 span{color:var(--luz)}
 .cerrar{width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:var(--blanco);display:grid;place-items:center;cursor:pointer}
 .cerrar:hover{background:rgba(255,255,255,.24)}
 .panel-cuerpo{padding:28px 24px 40px}
@@ -181,8 +183,8 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 .aviso-error{display:none;padding:12px 14px;border-radius:12px;background:#FDECEC;color:#8E1B1B;font-size:.92rem;margin-bottom:16px}
 .aviso-error.ver{display:block}
 .boton.ancho{width:100%;justify-content:center}
-.boton.verde{background:var(--verde);color:var(--azul-tinta)}
-.boton.verde:hover{background:var(--verde-vivo)}
+.boton.fuerte{background:var(--rey);color:var(--blanco)}
+.boton.fuerte:hover{background:var(--rey-hover)}
 .boton.linea{background:transparent;color:var(--azul);border:2px solid var(--azul)}
 .boton.linea:hover{background:var(--hielo)}
 .boton[disabled]{opacity:.6;cursor:progress}
@@ -191,7 +193,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 .radar{position:relative;height:150px;margin:6px 0 22px;border-radius:16px;background:var(--azul-noche);overflow:hidden}
 .radar .ruta{position:absolute;left:0;right:0;bottom:38px;height:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 18px,transparent 18px 34px);animation:ruta .8s linear infinite}
 @keyframes ruta{to{background-position:-34px 0}}
-.radar .auto{position:absolute;bottom:40px;left:calc(16px + (100% - 110px) * var(--av,0) / 100);transition:left 1s linear;color:var(--verde)}
+.radar .auto{position:absolute;bottom:40px;left:calc(16px + (100% - 110px) * var(--av,0) / 100);transition:left 1s linear;color:var(--luz)}
 .radar .auto svg{width:64px;height:30px;display:block}
 .radar .meta{position:absolute;right:16px;bottom:30px;top:22px;width:10px;background:repeating-linear-gradient(180deg,#fff 0 8px,var(--azul-tinta) 8px 16px);border-radius:3px;opacity:.85}
 .radar .tiempo{position:absolute;left:16px;top:14px;font:800 1.5rem/1 var(--display);color:var(--blanco);font-variant-numeric:tabular-nums}
@@ -203,7 +205,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 .resultado-cab{display:flex;align-items:center;gap:14px;margin-bottom:14px}
 .resultado-cab .medalla{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;flex:none}
 .resultado-cab .medalla .ico{width:28px;height:28px;stroke-width:2.6}
-.ok .medalla{background:var(--verde);color:var(--azul-tinta)}
+.ok .medalla{background:var(--rey);color:var(--blanco)}
 .no .medalla{background:var(--hielo);color:var(--azul)}
 .bancos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0;list-style:none}
 .bancos li{padding:9px 14px;border-radius:30px;background:var(--azul);color:var(--blanco);font-weight:700}
@@ -223,7 +225,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 }
 @media (max-width:640px){
   .barra{padding:16px 18px}
-  .barra .logo{height:24px}
+  .barra .logo{height:34px}
   .chip-wa span{display:none}
   .chip-wa{padding:10px}
   .titular{padding-top:18px}
@@ -262,7 +264,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 
   <nav class="barra" aria-label="Tutu Automotores">
     <a href="https://tutuautomotores.com/" aria-label="Tutu Automotores, ir al sitio">
-      <img class="logo" src="https://tutuautomotores.com/wp-content/uploads/2025/08/logo.svg" alt="Tutu Automotores" width="120" height="30"
+      <img class="logo" src="logo-tutu.png" alt="Tutu Automotores" width="188" height="60"
         onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-txt',textContent:'TUTU'}))">
     </a>
     <a class="chip-wa" href="https://wa.me/5493515171111?text=Hola!%20Quiero%20saber%20m%C3%A1s%20del%20Club%20Tutu%2B" target="_blank" rel="noopener">
@@ -382,7 +384,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
         </div>
         <label class="acepto"><input type="checkbox" id="acepto"> <span>Autorizo a Tutu Automotores a consultar mi situación crediticia y a contactarme por WhatsApp.</span></label>
         <span class="error" id="e-acepto" style="margin:-12px 0 16px;color:#B71C1C;font-weight:600;font-size:.86rem"></span>
-        <button class="boton verde ancho" type="submit" id="enviar">Evaluar mi crédito <svg class="ico"><use href="#i-flecha"/></svg></button>
+        <button class="boton fuerte ancho" type="submit" id="enviar">Evaluar mi crédito <svg class="ico"><use href="#i-flecha"/></svg></button>
       </form>
     </section>
 
@@ -411,7 +413,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
           <span class="error"></span>
         </div>
         <div class="chips" aria-label="Sugerencias"><button type="button">SUV</button><button type="button">Pick-up</button><button type="button">Sedán</button><button type="button">Hatchback</button><button type="button">0 km</button><button type="button">Usado</button><button type="button">Moto</button></div>
-        <button class="boton verde ancho" type="submit">Quiero que me contacten <svg class="ico"><use href="#i-flecha"/></svg></button>
+        <button class="boton fuerte ancho" type="submit">Quiero que me contacten <svg class="ico"><use href="#i-flecha"/></svg></button>
       </form>
     </section>
 
@@ -436,7 +438,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
           <span class="error"></span>
         </div>
         <div class="chips" aria-label="Sugerencias"><button type="button">SUV</button><button type="button">Pick-up</button><button type="button">Sedán</button><button type="button">Hatchback</button><button type="button">0 km</button><button type="button">Usado</button></div>
-        <button class="boton verde ancho" type="submit">Enviar <svg class="ico"><use href="#i-flecha"/></svg></button>
+        <button class="boton fuerte ancho" type="submit">Enviar <svg class="ico"><use href="#i-flecha"/></svg></button>
       </form>
     </section>
 
@@ -535,7 +537,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
     $('#mb-texto').textContent = '¡Ya está abierta! Entrá y conseguí la tuya.';
     reloj.remove(); $('#btn-interes').remove(); $('#mb-ok').remove(); $('#mb-contador').remove();
     const a = document.createElement('a');
-    a.href = urlMystery; a.target = '_blank'; a.rel = 'noopener'; a.className = 'ir'; a.style.color = 'var(--verde)';
+    a.href = urlMystery; a.target = '_blank'; a.rel = 'noopener'; a.className = 'ir'; a.style.color = 'var(--luz)';
     a.innerHTML = 'Abrir la Mystery Box <svg class="ico"><use href="#i-flecha"/></svg>';
     mb.appendChild(a);
   }
@@ -560,7 +562,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
     e.preventDefault();
     const inp = $('#mb-tel'), tel = inp.value.replace(/\D/g, '');
     if (tel.length < 8) { inp.focus(); inp.placeholder = 'Revisá el número (con código de área)'; inp.value = ''; return; }
-    try { await api('/api/mystery/interes', { method: 'POST', body: JSON.stringify({ dispositivo, telefono: tel }) }); $('#mb-aviso').outerHTML = '<p style="margin:0;color:var(--verde);font-weight:700">Listo, te avisamos por WhatsApp apenas abra.</p>'; }
+    try { await api('/api/mystery/interes', { method: 'POST', body: JSON.stringify({ dispositivo, telefono: tel }) }); $('#mb-aviso').outerHTML = '<p style="margin:0;color:var(--luz);font-weight:700">Listo, te avisamos por WhatsApp apenas abra.</p>'; }
     catch { inp.value = ''; inp.placeholder = 'No se pudo guardar, probá de nuevo'; }
   });
   api('/api/config').then(c => {

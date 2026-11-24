@@ -145,6 +145,10 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'font/woff2', 'Cache-Control': 'public, max-age=31536000, immutable' });
       return fs.createReadStream(f).pipe(res);
     }
+    if (req.method === 'GET' && url.pathname === '/logo-tutu.png') {
+      res.writeHead(200, { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=86400' });
+      return fs.createReadStream(path.join(__dirname, 'logo-tutu.png')).pipe(res);
+    }
     if (req.method === 'GET' && url.pathname === '/salud') return json(res, 200, { ok: true, robot: !!(ROBOT_URL && ROBOT_CLAVE), db: !!pool });
 
     if (req.method === 'GET' && url.pathname === '/api/config') {
