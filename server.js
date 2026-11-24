@@ -196,7 +196,7 @@ const server = http.createServer(async (req, res) => {
       const l = await leerLead(String(url.searchParams.get('id') || ''));
       if (!l) return json(res, 404, { error: 'No encontramos esa consulta.' });
       if (['aprobado', 'sin_oferta', 'revisar'].includes(l.resultado)) {
-        return json(res, 200, { estado: l.resultado, bancos: l.bancos ? String(l.bancos).split('|') : [] });
+        return json(res, 200, { estado: l.resultado }); // los bancos quedan solo para el panel y el webhook
       }
       const transcurrido = Date.now() - new Date(l.creado).getTime();
       let t = { estado: 'en_cola', resultados: [] };
@@ -210,7 +210,7 @@ const server = http.createServer(async (req, res) => {
         await actualizarLead(l.id, { resultado: out.estado, bancos: (out.bancos || []).join('|'), detalle: JSON.stringify(t.resultados || []) });
         avisarWebhook('express_resultado', { id: l.id, nombre: l.nombre, telefono: l.telefono, cuit: l.cuit, resultado: out.estado, bancos: out.bancos || [], detalle: t.resultados || [] });
       }
-      return json(res, 200, out);
+      return json(res, 200, { estado: out.estado }); // al cliente no se le dice qué banco aprobó
     }
 
     // ----- Tutu Express: vehículo que le interesa -----

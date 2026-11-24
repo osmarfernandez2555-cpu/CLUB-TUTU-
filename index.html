@@ -207,8 +207,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 .resultado-cab .medalla .ico{width:28px;height:28px;stroke-width:2.6}
 .ok .medalla{background:var(--rey);color:var(--blanco)}
 .no .medalla{background:var(--hielo);color:var(--azul)}
-.bancos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0;list-style:none}
-.bancos li{padding:9px 14px;border-radius:30px;background:var(--azul);color:var(--blanco);font-weight:700}
+.t-ok{font-size:1.2rem;font-weight:700;color:var(--tinta)!important;margin:0 0 24px!important}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:-4px 0 18px}
 .chips button{padding:8px 14px;border-radius:30px;border:1.5px solid var(--linea);background:var(--blanco);font-weight:600;font-size:.92rem;cursor:pointer;transition:border-color .2s,background .2s}
 .chips button:hover{border-color:var(--azul)}
@@ -290,7 +289,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
       <span class="sello">En 2 minutos</span>
       <span class="icono"><svg class="ico"><use href="#i-zap"/></svg></span>
       <h2>Tutu Express</h2>
-      <p>¿Tenés crédito? Averigualo ahora, sin moverte de tu casa. Te decimos qué banco te aprueba.</p>
+      <p>¿Tenés crédito? Averigualo ahora, sin moverte de tu casa. Te decimos si tenés crédito disponible.</p>
       <span class="ir">Evaluarme ahora <svg class="ico"><use href="#i-flecha"/></svg></span>
     </button>
 
@@ -324,13 +323,13 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
   <section class="seccion express-info" aria-labelledby="ei-titulo">
     <div>
       <h2 id="ei-titulo">Sabé si tenés crédito <em>antes</em> de elegir el auto</h2>
-      <p class="lead">Tutu Express consulta tu CUIT en varios bancos a la vez. Sin papeles y sin pasar por la concesionaria: en un par de minutos sabés con qué banco podés financiar.</p>
+      <p class="lead">Tutu Express consulta tu CUIT en varios bancos a la vez. Sin papeles y sin pasar por la concesionaria: en un par de minutos sabés si podés financiar tu auto.</p>
       <button class="boton" type="button" data-abrir-express>Evaluarme ahora <svg class="ico"><use href="#i-flecha"/></svg></button>
     </div>
     <ol class="pasos">
       <li><div><b>Dejás tu nombre, WhatsApp y CUIT</b><span>Nada más. Te lleva menos de un minuto.</span></div></li>
       <li><div><b>Nuestro robot consulta en los bancos</b><span>Revisa tu situación crediticia en simultáneo. Puede tardar hasta 2 minutos.</span></div></li>
-      <li><div><b>Te decimos qué banco te aprueba</b><span>Nos contás qué vehículo te interesa y un asesor te escribe por WhatsApp.</span></div></li>
+      <li><div><b>Te decimos si tenés crédito disponible</b><span>Nos contás qué vehículo te interesa y un asesor te escribe por WhatsApp.</span></div></li>
     </ol>
   </section>
 
@@ -403,9 +402,8 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
 
     <!-- Paso 3a: aprobado -->
     <section class="paso ok" id="p-ok" aria-labelledby="h-ok">
-      <div class="resultado-cab"><span class="medalla"><svg class="ico"><use href="#i-check"/></svg></span><h3 id="h-ok">¡Buenas noticias!</h3></div>
-      <p id="t-ok">Tenés crédito pre-aprobado con:</p>
-      <ul class="bancos" id="bancos"></ul>
+      <div class="resultado-cab"><span class="medalla"><svg class="ico"><use href="#i-check"/></svg></span><h3 id="h-ok">¡Felicitaciones!</h3></div>
+      <p id="t-ok" class="t-ok">Tenés crédito disponible.</p>
       <form class="f-vehiculo" data-form-vehiculo>
         <div class="campo">
           <label for="veh-ok">Decime qué vehículo te interesa así un asesor se comunica</label>
@@ -505,7 +503,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
     const b = o.body ? JSON.parse(o.body) : {};
     if (ruta.startsWith('/api/config')) return { mysteryApertura: null, interesados: 0 };
     if (ruta.startsWith('/api/express/consultar')) { const id = 'demo' + Date.now(); demoDB[id] = { t: Date.now(), par: Number(b.cuit.slice(-1)) % 2 === 0 }; return { id }; }
-    if (ruta.startsWith('/api/express/estado')) { const x = demoDB[new URL(ruta, location.href).searchParams.get('id')] || { t: 0, par: true }; if (Date.now() - x.t < 9000) return { estado: 'evaluando' }; return x.par ? { estado: 'aprobado', bancos: ['Banco Galicia', 'Santander'] } : { estado: 'sin_oferta' }; }
+    if (ruta.startsWith('/api/express/estado')) { const x = demoDB[new URL(ruta, location.href).searchParams.get('id')] || { t: 0, par: true }; if (Date.now() - x.t < 9000) return { estado: 'evaluando' }; return x.par ? { estado: 'aprobado' } : { estado: 'sin_oferta' }; }
     if (ruta.startsWith('/api/express/vehiculo')) return { ok: true };
     if (ruta.startsWith('/api/mystery/interes')) { demoDB.mb = (demoDB.mb || 312) + (b.telefono ? 0 : 1); return { interesados: demoDB.mb }; }
     return {};
@@ -655,10 +653,7 @@ dialog.panel::backdrop{background:rgba(0,17,46,.62);backdrop-filter:blur(3px)}
     clearInterval(sondeo);
     $('#p-eval').setAttribute('aria-busy', 'false');
     if (d.estado === 'aprobado') {
-      $('#h-ok').textContent = `¡Buenas noticias, ${consulta.nombre}!`;
-      $('#t-ok').textContent = d.bancos && d.bancos.length > 1 ? 'Tenés crédito pre-aprobado con estos bancos:' : 'Tenés crédito pre-aprobado con:';
-      $('#bancos').innerHTML = '';
-      (d.bancos || []).forEach(b => { const li = document.createElement('li'); li.textContent = b; $('#bancos').appendChild(li); });
+      $('#h-ok').textContent = `¡Felicitaciones, ${consulta.nombre}!`;
       ir('p-ok');
     } else if (d.estado === 'sin_oferta') ir('p-no');
     else ir('p-revisar');
