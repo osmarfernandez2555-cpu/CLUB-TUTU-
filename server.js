@@ -12,7 +12,10 @@ const path = require('path');
 const crypto = require('crypto');
 
 const PORT = process.env.PORT || 3000;
-const ROBOT_URL = (process.env.ROBOT_URL || '').replace(/\/+$/, '');   // ej: https://consulta-bancor-production.up.railway.app
+const ROBOT_URL = (() => {            // se queda solo con la dirección base, aunque peguen el link con ?robot=1 o /algo
+  const v = String(process.env.ROBOT_URL || '').trim();
+  try { return v ? new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).origin : ''; } catch { return v.replace(/\/+$/, ''); }
+})();   // ej: https://consulta-bancor-production.up.railway.app
 const ROBOT_CLAVE = process.env.ROBOT_CLAVE || '';                    // la misma ROBOT_CLAVE del robot
 const EXPRESS_BANCOS = process.env.EXPRESS_BANCOS || '';               // vacío = los bancos por defecto del robot
 const LEADS_WEBHOOK = process.env.LEADS_WEBHOOK || '';                 // opcional: URL que recibe cada lead (Kommo, Make, Ruthina…)
