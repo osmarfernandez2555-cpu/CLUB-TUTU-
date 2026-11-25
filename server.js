@@ -112,8 +112,11 @@ function pasaLimite(clave, max, ventanaMs) {
 async function avisarWebhook(evento, datos) {
   if (!LEADS_WEBHOOK) return;
   try {
-    await fetch(LEADS_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    const r = await fetch(LEADS_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ origen: 'club-tutu', evento, ...datos }), signal: AbortSignal.timeout(10000) });
+    // antes un 401/404 pasaba en silencio: ahora queda en el log para saber si Ruthina lo recibió
+    if (r.ok) console.log(`[Webhook] ${evento} → Ruthina OK`);
+    else console.log(`[Webhook] ${evento} → FALLÓ ${r.status} ${(await r.text().catch(() => '')).slice(0, 120)}  (revisá LEADS_WEBHOOK y la clave)`);
   } catch (e) { console.log('[Webhook] error:', e.message); }
 }
 
@@ -152,7 +155,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=86400' });
       return fs.createReadStream(path.join(__dirname, 'logo-tutu.png')).pipe(res);
     }
-    if (req.method === 'GET' && url.pathname === '/salud') return json(res, 200, { ok: true, robot: !!(ROBOT_URL && ROBOT_CLAVE), db: !!pool });
+    if (req.method === 'GET' && url.pathname === '/salud') return json(res, 200, { ok: true, robot: !!(ROBOT_URL && ROBOT_CLAVE), db: !!pool, ruthina: !!LEADS_WEBHOOK });
 
     if (req.method === 'GET' && url.pathname === '/api/config') {
       return json(res, 200, { mysteryApertura: MYSTERY_APERTURA, mysteryUrl: MYSTERY_URL, referidosUrl: REFERIDOS_URL, interesados: await totalInteres() });
